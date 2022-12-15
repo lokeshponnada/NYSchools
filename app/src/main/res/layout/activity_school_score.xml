@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="scoreViewModel"
+            type="com.example.nyschools.ScoreActivityViewModel" />
+        <import type="com.example.nyschools.uistate.SchoolListLoadState"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:visibility="@{scoreViewModel.scoreStateLiveData.loadState == SchoolListLoadState.FAILURE ? View.VISIBLE : View.GONE}"
+            android:id="@+id/scoreErrorLyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="@dimen/dp_12"
+                android:layout_gravity="center"
+                android:id="@+id/errorTV"
+                android:textSize="@dimen/sp_20"
+                android:text="@string/error_loading_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/scoreLyt"
+            android:visibility="@{scoreViewModel.scoreStateLiveData.loadState != SchoolListLoadState.FAILURE ? View.VISIBLE : View.GONE}"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.nyschools.ui.ScoreActivity">
+
+            <TextView
+                android:id="@+id/schoolname"
+                android:hint="School Name"
+                android:text="@{@string/school_name(scoreViewModel.scoreStateLiveData.component2().component2())}"
+                android:layout_margin="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/testTakers"
+                android:hint="@string/hint_test_takers"
+                android:text= "@{@string/test_takers(scoreViewModel.scoreStateLiveData.component2().component3())}"
+                android:layout_margin="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/readingScore"
+                android:hint="@string/hint_reading_score"
+                android:text="@{@string/avg_reading_score(scoreViewModel.scoreStateLiveData.component2().component4())}"
+                android:layout_margin="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/mathScore"
+                android:hint="@string/hint_math_score"
+                android:layout_margin="@dimen/dp_16"
+                android:text="@{@string/avg_math_score(scoreViewModel.scoreStateLiveData.component2().component5())}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/writingScore"
+                android:hint="@string/hint_writing_score"
+                android:text="@{@string/avg_writing_score(scoreViewModel.scoreStateLiveData.component2().component6())}"
+                android:layout_margin="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
