@@ -22,11 +22,14 @@ class SchoolRepository @Inject constructor() {
     suspend fun getSchoolScore(dbn:String): Score?{
         var score = ScoreCache.getInstance().getItem(dbn)
         if(score == null){
-            val scoreResponse = schoolsApiService.getSchoolScore(dbn)
-            if(scoreResponse.isNotEmpty() ){
-                score = scoreResponse[0]
-                ScoreCache.getInstance().putItem(dbn,score)
+            kotlin.runCatching {
+                val scoreResponse = schoolsApiService.getSchoolScore(dbn)
+                if(scoreResponse.isNotEmpty() ){
+                    score = scoreResponse[0]
+                    ScoreCache.getInstance().putItem(dbn,score)
+                }
             }
+
         }else{
            // Score already fetched from cache
         }
@@ -40,13 +43,14 @@ class SchoolRepository @Inject constructor() {
             repeat(schools.size){
                 val school = schools[it]
                 if(school.dbn != null && ScoreCache.getInstance().getItem(school.dbn) == null){
-                    val schoolScore = getSchoolScore(school.dbn)
-                    if(schoolScore != null){
-                        ScoreCache.getInstance().putItem(school.dbn,schoolScore)
+                    runCatching{
+                        val schoolScore = getSchoolScore(school.dbn)
+                        if(schoolScore != null){
+                            ScoreCache.getInstance().putItem(school.dbn,schoolScore)
+                        }
                     }
                 }
             }
-
         }
     }
 

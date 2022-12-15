@@ -23,6 +23,7 @@
     <string name="title_score_activity">SAT Score Details</string>
     <string name="error_loading_details">Error Loading Details</string>
     <string name="retry">Retry</string>
+    <string name="retry_todo">Retry (Todo) </string>
     <string name="nyc_schools">NYC Schools</string>
     <string name="school_icon">School Icon</string>
 </resources>

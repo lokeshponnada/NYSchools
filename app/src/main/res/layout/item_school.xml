@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-    <variable
-        name="school"
-        type="com.example.nyschools.model.School" />
+        <variable
+            name="school"
+            type="com.example.nyschools.model.School" />
 
         <variable
             name="clickListener"
@@ -63,5 +63,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 </layout>
+
 
 
